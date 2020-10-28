@@ -1,5 +1,8 @@
-SELECT p.name
-FROM people AS p
-INNER JOIN stars AS s ON s.person_id = p.id
-INNER JOIN movies AS m ON s.movie_id = m.id
-    AND m.title = "Toy Story"
+SELECT name FROM people
+WHERE id IN (
+        SELECT person_id FROM stars
+        WHERE movie_id = (
+                SELECT id FROM movies
+                WHERE title = "Toy Story"
+                )
+        );
